@@ -7,6 +7,10 @@ import java.io.InputStreamReader;
 /**
  * Created by yuki_yanagi on 2014/04/22.
  */
+
+/**
+ * Because this class is stateless, all methods declared as static.
+ */
 public class Reader {
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

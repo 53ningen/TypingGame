@@ -31,7 +31,6 @@ public class Application extends Controller{
 
         switch(path){
             case "":
-                startTimeMill = System.currentTimeMillis();
                 Front.showInformation();
                 return "readFile";
 
@@ -46,11 +45,13 @@ public class Application extends Controller{
                 return "waitStart";
 
             case "waitStart":
+                Front.waitStart();
                 String returnVal = Reader.waitStart();
                 if(returnVal.equals("イ"))
                     return "waitEnter";
                 else
-                    return "exit";
+                    Front.quit();
+                    break;
 
             case "waitEnter":
                 Front.showStartMsg();
@@ -58,6 +59,8 @@ public class Application extends Controller{
                 return "gameStart";
 
             case "gameStart":
+                startTimeMill = System.currentTimeMillis();
+                Front.showIntroduction();
                 Collections.shuffle(data);
                 for(int i = 1; i <= 5; i++){
                     Front.showQuestion(i,data.get(i));
@@ -68,6 +71,8 @@ public class Application extends Controller{
             case "exit":
                 stopTimeMill = System.currentTimeMillis();
                 Front.exit(startTimeMill, stopTimeMill);
+                Reader.waitEnter();
+                return "waitStart";
         }
         return null;
     }
